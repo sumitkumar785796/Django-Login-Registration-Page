@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block start %}
+<div class="container">
+    {% if messages %}
+    <div class="alert alert-primary">
+        {% for message in messages %}
+        {{message}}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <h1 class="text-center">Login Form</h1>
+    <form method="post">
+        {% csrf_token %}
+        <h3>Personal Information</h3>
+    <div class="row">
+        <div class="col-sm-6">
+            <label for="first_name">First Name</label>
+            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" oninput="validateFirstName()" autocomplete="off">
+            <span id="firstNameMessage" style="color: red;"></span>
+        </div>
+        <div class="col-sm-6">
+            <label for="user">Last Name</label>
+            <input type="text" class="form-control" name="last_name" id="user" placeholder="Last Name" autocomplete="off">
+        </div>
+    </div>
+    <h3>Account Information</h3>
+    <div class="row">
+        <div class="col-sm-6">
+            <label for="username">UserName</label>
+            <input type="text" class="form-control" name="username" id="username" placeholder="Enter User Name" oninput="validateUsername()" autocomplete="off">
+            <span id="usernameMessage" style="color: red;"></span>
+        </div>
+        <div class="col-sm-6">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Id" oninput="validateEmail()" autocomplete="off">
+            <span id="emailMessage" style="color: red;"></span>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-sm-6">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password"  oninput="validatePassword()" autocomplete="off">
+            <span id="passwordMessage" style="color: red;"></span>
+        </div>
+        <div class="col-sm-6">
+            <label for="confirmPassword">Password</label>
+            <input type="password" class="form-control" name="password" id="confirmPassword" placeholder="Password" oninput="validatePasswordMatch()" autocomplete="off">
+            <span id="passwordMatchMessage" style="color: red;"></span>
+        </div>
+       
+    </div>
+    <br>
+    <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>
+<script>
+    function validateFirstName() {
+        const first_name = document.getElementById("first_name").value;
+        const message = document.getElementById("firstNameMessage");
+
+        if (first_name) {
+            message.textContent = "First Name is valid!";
+            message.style.color = "green";
+        } else {
+            message.textContent = "First Name is required.";
+            message.style.color = "red";
+        }
+    }
+
+    function validateUsername() {
+        const username = document.getElementById("username").value;
+        const message = document.getElementById("usernameMessage");
+
+        if (username) {
+            message.textContent = "Username is valid!";
+            message.style.color = "green";
+        } else {
+            message.textContent = "Username is required.";
+            message.style.color = "red";
+        }
+    }
+
+    function validateEmail() {
+        const email = document.getElementById("email").value;
+        const message = document.getElementById("emailMessage");
+
+        // Regular expression pattern for a valid email address
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+        if (emailPattern.test(email)) {
+            message.textContent = "Email is valid!";
+            message.style.color = "green";
+        } else {
+            message.textContent = "Please enter a valid email address.";
+            message.style.color = "red";
+        }
+    }
+
+    function validatePassword() {
+        const password = document.getElementById("password").value;
+        const message = document.getElementById("passwordMessage");
+
+        // Regular expression pattern for a strong password
+        const passwordPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*\d]{8,}$/;
+
+        if (passwordPattern.test(password)) {
+            message.textContent = "Password is strong!";
+            message.style.color = "green";
+        } else {
+            message.textContent = "Password should be at least 8 characters long, start with a capital letter, and contain at least one symbol (!@#$%^&*).";
+            message.style.color = "red";
+        }
+    }
+
+    function validatePasswordMatch() {
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        const message = document.getElementById("passwordMatchMessage");
+
+        if (password === confirmPassword) {
+            message.textContent = "Passwords match!";
+            message.style.color = "green";
+        } else {
+            message.textContent = "Passwords do not match.";
+            message.style.color = "red";
+        }
+    }
+</script>
+{% endblock %}
