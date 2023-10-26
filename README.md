@@ -1,13 +1,12 @@
 # Django-Login-Registration-Page
-Create Login and Registration page using Django
-step1: Type this command
-py -m venv env
-env\scripts\activate
-py -m pip install django
-py -m pip install pillow
-and create myapp folder and paste mycode myapp
-finally run this command
-cd myapp 
-py manage.py makemigrations
-py manage.py migrate
-py manage.py runserver
+Create Login and Registration page using Django 
+Type all the command 
+1)py -m venv env
+2)env\scripts\activate
+3)py -m pip install django
+4)py -m pip install pillow
+5)create folder mkdir myapp and paste mycode myapp
+6)cd myapp 
+7)py manage.py makemigrations
+8)py manage.py migrate
+9)py manage.py runserver
